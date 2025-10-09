@@ -292,7 +292,7 @@ algorithm can be summarized as follows:
 
     \\begin{array}{rcl}
     \\bar{\\mathbf{y}} &=& \\sum_{i=0}^{2n} w_i^{(m)} \\mathcal{Y}_i \\\\ \\\\
-    \\mathbf{P}_{yy} &=& \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Y}_i - \\bar{\\mathbf{y}})^T + \\mathbf{Q}
+    \\mathbf{P_{yy}} &=& \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Y}_i - \\bar{\\mathbf{y}})^T + \\mathbf{Q}
     \\end{array}
 
 **Correction**:
@@ -309,20 +309,20 @@ algorithm can be summarized as follows:
 
     \\begin{array}{rcl}
     \\bar{\\mathbf{z}} &=& \\sum_{i=0}^{2n} w_i^{(m)} \\mathcal{Z}_i \\\\ \\\\
-    \\mathbf{P}_{zz} &=& \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Z}_i - \\bar{\\mathbf{z}})(\\mathcal{Z}_i - \\bar{\\mathbf{z}})^T + \\mathbf{R}
+    \\mathbf{P_{zz}} &=& \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Z}_i - \\bar{\\mathbf{z}})(\\mathcal{Z}_i - \\bar{\\mathbf{z}})^T + \\mathbf{R}
     \\end{array}
 
 6. Compute Cross-Covariance.
 
 .. math::
 
-    \\mathbf{P}_{yz} = \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Z}_i - \\bar{\\mathbf{z}})^T
+    \\mathbf{P_{yz}} = \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Z}_i - \\bar{\\mathbf{z}})^T
 
 7. Compute Kalman gain.
 
 .. math::
 
-    \\mathbf{K} = \\mathbf{P}_{yz} \\mathbf{P}_{zz}^{-1}
+    \\mathbf{K} = \\mathbf{P_{yz}} \\mathbf{P_{zz}}^{-1}
 
 8. Compute Innovation (residual.)
 
@@ -336,7 +336,7 @@ algorithm can be summarized as follows:
 
     \\begin{array}{rcl}
     \\mathbf{x}_t &=& \\bar{\\mathbf{y}} + \\mathbf{K} \\mathbf{v}_t \\\\ \\\\
-    \\mathbf{P}_t &=& \\mathbf{P}_{yy} - \\mathbf{K} \\mathbf{P}_{zz} \\mathbf{K}^T
+    \\mathbf{P}_t &=& \\mathbf{P_{yy}} - \\mathbf{K} \\mathbf{P_{zz}} \\mathbf{K}^T
     \\end{array}
 
 UKF for Attitude Estimation
@@ -493,13 +493,13 @@ where the rotation operator :math:`\\big[\\mathbf{I}_4 + \\frac{\\Delta t}{2}
 second term of the Taylor series expansion of
 :math:`\\int_{t-1}^t\\boldsymbol\\omega\\, dt`.
 
-We assume in this description, that the time step :math:`\\Delta t` is constant.
-However, it can be changed at any time during the implementation.
-
 .. note::
 
     For more details about this linear operation, please refer to the
     documentation of the `Attitude from Angular Rate <./angular.html>`_.
+
+We assume in this description, that the time step :math:`\\Delta t` is constant.
+However, it can be changed at any time during the implementation.
 
 We propagate each of the sigma points through the process model
 :math:`f` to get a new set of transformed state points :math:`\\mathcal{Y}`:
@@ -536,7 +536,7 @@ We proceed to compute the **Predicted State Covariance**.
 
 .. math::
 
-    \\boxed{\\mathbf{P}_{yy} = \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Y}_i - \\bar{\\mathbf{y}})^T + \\mathbf{Q}}
+    \\boxed{\\mathbf{P_{yy}} = \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Y}_i - \\bar{\\mathbf{y}})^T + \\mathbf{Q}}
 
 Notice the product :math:`(\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Y}_i
 - \\bar{\\mathbf{y}})^T` is the `outer product
@@ -693,7 +693,7 @@ And the **Measurement Covariance**:
 
 .. math::
 
-    \\boxed{\\mathbf{P}_{zz} = \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Z}_i - \\bar{\\mathbf{z}})(\\mathcal{Z}_i - \\bar{\\mathbf{z}})^T + \\mathbf{R}}
+    \\boxed{\\mathbf{P_{zz}} = \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Z}_i - \\bar{\\mathbf{z}})(\\mathcal{Z}_i - \\bar{\\mathbf{z}})^T + \\mathbf{R}}
 
 The **Measurement Noise Covariance Matrix** :math:`\\mathbf{R}` is built based
 on whether we have accelerometer readings only, or both accelerometer and
@@ -728,20 +728,20 @@ of the accelerometer readings, and :math:`\\sigma_{m_x}`, :math:`\\sigma_{m_y}`,
 and :math:`\\sigma_{m_z}` are the standard deviations of the magnetometer
 readings.
 
-The **Cross-Covariance Matrix** :math:`\\mathbf{P}_{yz}` represents how changes
+The **Cross-Covariance Matrix** :math:`\\mathbf{P_{yz}}` represents how changes
 in the state variables correlate with changes in the measurement variables.
 Specifically, it quantifies how errors in the predicted states are related to
 errors in the expected measurements.
 
 .. math::
 
-    \\boxed{\\mathbf{P}_{yz} = \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Z}_i - \\bar{\\mathbf{z}})^T}
+    \\boxed{\\mathbf{P_{yz}} = \\sum_{i=0}^{2n} w_i^{(c)} (\\mathcal{Y}_i - \\bar{\\mathbf{y}})(\\mathcal{Z}_i - \\bar{\\mathbf{z}})^T}
 
 With these matrices we compute the **Kalman Gain**.
 
 .. math::
 
-    \\boxed{\\mathbf{K} = \\mathbf{P}_{yz} \\mathbf{P}_{zz}^{-1}}
+    \\boxed{\\mathbf{K} = \\mathbf{P_{yz}} \\mathbf{P_{zz}}^{-1}}
 
 Notice this is a much simpler operation than the Extended Kalman Filter (EKF)
 where we need to compute the Jacobian matrix.
@@ -764,7 +764,7 @@ Finally, we use all this information to correct the state and covariance:
     \\boxed{
     \\begin{array}{rcl}
     \\mathbf{x}_t &=& \\bar{\\mathbf{y}} + \\mathbf{K} \\mathbf{v}_t \\\\ \\\\
-    \\mathbf{P}_t &=& \\mathbf{P}_{yy} - \\mathbf{K} \\mathbf{P}_{zz} \\mathbf{K}^T
+    \\mathbf{P}_t &=& \\mathbf{P_{yy}} - \\mathbf{K} \\mathbf{P_{zz}} \\mathbf{K}^T
     \\end{array}}
 
 Footnotes
@@ -978,7 +978,7 @@ class UKF:
         Sigma Points computation.
 
         Given a state :math:`\\mathbf{x}` and its covariance
-        :math:`\\mathbf{P}_{xx}`, compute the sigma points
+        :math:`\\mathbf{P_{xx}}`, compute the sigma points
         :math:`\\mathcal{X}` as:
 
         .. math::
