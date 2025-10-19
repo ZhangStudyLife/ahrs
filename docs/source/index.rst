@@ -14,37 +14,23 @@ recommended to be used commercially.
 All algorithms and implementations have their proper documentation and
 references, in case you need further clarification of their usage.
 
-New in version 0.3
+New in version 0.4
 ------------------
 
-- The **World Magnetic Model** (`WMM <https://www.ngdc.noaa.gov/geomag/WMM/DoDWMM.shtml>`_)
-  is fully implemented. It can be used to estimate all magnetic field elements
-  on any given place of Earth for dates between 2015 and 2025.
-- The *ellipsoid model* of the **World Geodetic System** (`WGS84
-  <https://earth-info.nga.mil/GandG/update/index.php?dir=wgs84&action=wgs84>`_)
-  is included. A full implementation of the **Earth Gravitational Model**
-  (`EGM2008 <https://earth-info.nga.mil/GandG/wgs84/gravitymod/egm2008/egm08_wgs84.html>`_)
-  is *NOT* available here, but the estimations of the main and derived
-  parameters of the WGS84 using the ellipsoid model are carried out.
-- The `International Gravity Formula <http://earth.geology.yale.edu/~ajs/1945A/360.pdf>`_
-  and the EU's `WELMEC <https://www.welmec.org/documents/guides/2/>`_ normal
-  gravity reference system are also implemented.
-- New class ``DCM`` (derived from ``numpy.ndarray``) for orientation/rotation
-  representations as 3x3 Direction Cosine Matrices.
-- New class ``QuaternionArray`` to simultaneously handle an array with more
-  quaternions at once.
-- New submodule ``frames`` to represent the position of an object in different
-  reference frames.
-- `Metrics <https://ahrs.readthedocs.io/en/latest/metrics.html>`_ for rotations
-  in 3D spaces using quaternions and direction cosine matrices.
-- New operations, properties and methods for class ``Quaternion``, now also
-  derived from ``numpy.ndarray``.
-- A whole bunch of `new constant values <https://ahrs.readthedocs.io/en/latest/constants.html>`_
-  (mainly for Geodesy) accessed from the top level of the package.
-- Docstrings are improved with further explanations, references and equations
-  whenever possible.
-- New and improved estimators include a short, but clear documentation with
-  references. Many use different sensor arrays. The available algorithms are:
+- New attitude estimation algorithms: FKF and UKF.
+- New submodules: ``sensors`` and ``geodesy``.
+- More methods for Quaternion and Direction Cosine Matrix representations.
+- Improved documentation and examples.
+- All functions and objects are type hinted.
+
+For a complete list of changes, please refer to the `changelog
+<https://github.com/Mayitzin/ahrs/blob/master/CHANGELOG.md>`_.
+
+Attitude Estimation
+-------------------
+
+The available algorithms to compute attitude from inertial / magnetic sensors
+are:
 
 =============  =========  =============  ============
 Algorithm      Gyroscope  Accelerometer  Magnetometer
@@ -55,6 +41,7 @@ Davenport's    NO         YES            YES
 EKF            YES        YES            YES
 FAMC           NO         YES            YES
 FLAE           NO         YES            YES
+FKF            YES        YES            YES
 Fourati        YES        YES            YES
 FQA            NO         YES            Optional
 Integration    YES        NO             NO
@@ -66,16 +53,14 @@ ROLEQ          NO         YES            YES
 SAAM           NO         YES            YES
 Tilt           NO         YES            Optional
 TRIAD          NO         YES            YES
+UKF            YES        YES            Optional
 =============  =========  =============  ============
 
 Deprecations
 ------------
 
-Submodules ``io`` and ``plot`` are dismissed, removing dependecies on Scipy and
-matplotlib. This decision was made with the intent to better focus on the
-algorithmic part of the package.
-
-Loading and visualizing the data is left to the preference of the user.
+Submodules ``io`` and ``plot`` are removed. Loading and visualizing the data is
+left to the preference of the user.
 
 .. toctree::
    :maxdepth: 1
